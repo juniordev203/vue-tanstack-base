@@ -14,7 +14,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli src/",
+    "format": "prettier --write \"**/*.{js,ts,jsx,tsx,vue,json,css,scss,md}\"",
+    "format:check": "prettier --check \"**/*.{js,ts,jsx,tsx,vue,json,css,scss,md}\"",
     "prepare": "husky"
   },
   "dependencies": {
@@ -27,6 +28,8 @@
     "@tsconfig/node24": "^24.0.3",
     "@types/jsdom": "^27.0.0",
     "@types/node": "^24.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
     "@vitejs/plugin-vue": "^6.0.2",
     "@vitejs/plugin-vue-jsx": "^5.1.2",
     "@vitest/eslint-plugin": "^1.5.0",
@@ -35,10 +38,12 @@
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.8.1",
     "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "~10.5.1",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
     "jsdom": "^27.2.0",
+    "lint-staged": "^16.3.0",
     "npm-run-all2": "^8.0.4",
     "prettier": "3.6.2",
     "typescript": "~5.9.0",
@@ -46,5 +51,14 @@
     "vite-plugin-vue-devtools": "^8.0.5",
     "vitest": "^4.0.14",
     "vue-tsc": "^3.1.5"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,scss,md}": [
+      "prettier --write"
+    ]
   }
 }
