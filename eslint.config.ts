@@ -12,7 +12,11 @@ export default defineConfigWithVueTs(
   {
     name: 'app/files-to-lint',
     files: ['**/*.{ts,mts,tsx,vue}'],
-    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**', '**/node_modules/**'],
+  },
+
+  {
+    name: 'app/files-to-ignore',
+    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**', '**/node_modules/**', 'public/**'],
   },
 
   pluginVue.configs['flat/essential'],
@@ -22,5 +26,30 @@ export default defineConfigWithVueTs(
     ...pluginVitest.configs.recommended,
     files: ['**/*.{test,spec}.{ts,mts,tsx,vue}'],
   },
+
+  // Quy tắc cho Shadcn/UI components
+  {
+    name: 'app/shadcn-ui-overrides',
+    files: ['src/components/ui/**/*.{ts,vue}'],
+    rules: {
+      'vue/multi-word-component-names': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+    },
+  },
+
+  // Quy tắc chung cho project
+  {
+    name: 'app/custom-rules',
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+    },
+  },
+
   skipFormatting
 )
